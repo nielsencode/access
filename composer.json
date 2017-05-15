@@ -1,3 +1,9 @@
 {
-    "name": "components/access"
+    "name": "components/access",
+
+    "autoload": {
+        "psr-4": {
+            "Components\\Access\\": "src/"
+        }
+    }
 }
