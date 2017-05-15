@@ -55,7 +55,7 @@ class Access
         return $denial($policy);
     }
 
-    public function insist($policy,$parameters)
+    public function insist($policy,$parameters=[])
     {
         if (!$this->enforcePolicy($policy,$parameters)) {
             $this->deny($policy);
@@ -64,7 +64,7 @@ class Access
         return true;
     }
 
-    public function check($policy,$parameters)
+    public function check($policy,$parameters=[])
     {
         return $this->enforcePolicy($policy,$parameters);
     }
