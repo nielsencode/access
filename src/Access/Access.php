@@ -1,5 +1,5 @@
 <?php
-namespace Access\Access;
+namespace Components\Access\Access;
 
 require_once __DIR__.'/AccessDeniedException.php';
 

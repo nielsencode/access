@@ -1,5 +1,5 @@
 <?php
-namespace Access\Access;
+namespace Components\Access\Access;
 
 abstract class Policy
 {

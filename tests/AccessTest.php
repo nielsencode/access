@@ -3,7 +3,7 @@
 require_once __DIR__.'/../src/Access/Access.php';
 require_once __DIR__.'/Policies/UserIsLoggedInPolicy.php';
 
-use Access\Access\Access;
+use Components\Access\Access\Access;
 
 class NopeSorryException extends \Exception {}
 

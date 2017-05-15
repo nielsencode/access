@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../src/Access/Policy.php';
 
-use Access\Access\Policy as Policy;
+use Components\Access\Access\Policy as Policy;
 
 class UserIsLoggedInPolicy extends Policy
 {
