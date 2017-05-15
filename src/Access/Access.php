@@ -1,5 +1,5 @@
 <?php
-namespace Components\Access\Access;
+namespace Components\Access;
 
 require_once __DIR__.'/AccessDeniedException.php';
 
@@ -32,33 +32,34 @@ class Access
 
     protected function getPolicy($name)
     {
-        return $this->hasPolicy($name) ? $this->policies[$name] : false;
-    }
-
-    protected function enforcePolicy($name,$parameters)
-    {
-        if (!$policy = $this->getPolicy($name)) {
+        if (!$this->hasPolicy($name)) {
             throw new \Exception("Policy \"$name\" is not defined.");
         }
 
-        return $policy->enforce($parameters);
+        return $this->policies[$name];
     }
 
-    protected function deny($policy)
+    protected function deny(Policy $policy,$parameters)
     {
-        if (!isset($this->denial)) {
-            throw new AccessDeniedException;
+        if (method_exists($policy,'violation')) {
+            return $policy->violate($parameters);
         }
 
-        $denial = $this->denial;
+        if (isset($this->denial)) {
+            $denial = $this->denial;
 
-        return $denial($policy);
+            return $denial($policy,$parameters);
+        }
+
+        throw new AccessDeniedException;
     }
 
     public function insist($policy,$parameters=[])
     {
-        if (!$this->enforcePolicy($policy,$parameters)) {
-            $this->deny($policy);
+        $policy = $this->getPolicy($policy);
+
+        if (!$policy->enforce($parameters)) {
+            $this->deny($policy,$parameters);
         }
 
         return true;
@@ -66,6 +67,8 @@ class Access
 
     public function check($policy,$parameters=[])
     {
-        return $this->enforcePolicy($policy,$parameters);
+        $policy = $this->getPolicy($policy);
+
+        return $policy->enforce($parameters);
     }
 }

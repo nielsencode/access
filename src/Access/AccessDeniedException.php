@@ -1,5 +1,5 @@
 <?php
-namespace Components\Access\Access;
+namespace Components\Access;
 
 class AccessDeniedException extends \Exception
 {
